@@ -1,0 +1,60 @@
+{
+  "name": "rte",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "browser": "./dist/browser.js",
+      "node": "./dist/node.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc src/",
+    "build:docs": "python3 -m sphinx -W -T -b html -d docs/build/doctrees -D language=fr docs docs/build/html",
+    "build:docs:configure": "pip install --upgrade pip setuptools sphinx readthedocs-sphinx-ext && pip install -r docs/requirements.txt",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "pnpm lint:dry --fix",
+    "lint:dry": "eslint \"{src,apps,libs,test,prisma,migration}/**/*.ts\"",
+    "test": "vitest run --config test/vitest.config.mts",
+    "test:watch": "vitest --config test/vitest.config.mts",
+    "test:cov": "pnpm test --coverage"
+  },
+  "keywords": [],
+  "authors": [
+    "AlbanSdl"
+  ],
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.2",
+  "dependencies": {
+    "@lexical/code": "^0.52.0",
+    "@lexical/extension": "^0.52.0",
+    "@lexical/headless": "^0.52.0",
+    "@lexical/html": "^0.52.0",
+    "@lexical/link": "^0.52.0",
+    "@lexical/list": "^0.52.0",
+    "@lexical/rich-text": "^0.52.0",
+    "@lexical/table": "^0.52.0",
+    "lexical": "^0.52.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.71.1",
+    "@typescript-eslint/parser": "^8.71.1",
+    "@vitest/coverage-v8": "^5.0.3",
+    "eslint": "^10.12.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.6",
+    "prettier": "^3.9.9",
+    "typescript": "^7.0.2",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
+  },
+  "optionalDependencies": {
+    "@lexical/react": "^0.52.0",
+    "@lexical/utils": "^0.52.0",
+    "eslint-plugin-react": "^7.37.5"
+  }
+}
