@@ -13,8 +13,11 @@
       "@/*": ["./src/*"],
       "#/*": ["./test/*"]
     },
+    "jsx": "preserve",
     "incremental": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": false
   }
 }

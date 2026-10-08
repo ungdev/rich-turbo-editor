@@ -12,7 +12,7 @@
     }
   },
   "scripts": {
-    "build": "tsc src/",
+    "build": "tsc",
     "build:docs": "python3 -m sphinx -W -T -b html -d docs/build/doctrees -D language=fr docs docs/build/html",
     "build:docs:configure": "pip install --upgrade pip setuptools sphinx readthedocs-sphinx-ext && pip install -r docs/requirements.txt",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -30,8 +30,10 @@
   "packageManager": "pnpm@10.33.2",
   "dependencies": {
     "@lexical/code": "^0.52.0",
+    "@lexical/code-shiki": "^0.52.0",
     "@lexical/extension": "^0.52.0",
     "@lexical/headless": "^0.52.0",
+    "@lexical/history": "^0.52.0",
     "@lexical/html": "^0.52.0",
     "@lexical/link": "^0.52.0",
     "@lexical/list": "^0.52.0",
@@ -54,7 +56,11 @@
   },
   "optionalDependencies": {
     "@lexical/react": "^0.52.0",
+    "@lexical/selection": "^0.52.0",
     "@lexical/utils": "^0.52.0",
-    "eslint-plugin-react": "^7.37.5"
+    "@types/react": "^19.3.0",
+    "eslint-plugin-react": "^7.37.5",
+    "obra-icons-react": "^1.25.0",
+    "react": "^19.3.0"
   }
 }
