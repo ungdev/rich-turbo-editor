@@ -27,8 +27,8 @@ import {
   ImageNode,
   srcState,
   widthState,
-} from '@/nodes/ImageNode.jsx';
-import { Image } from '@/browser/Image.js';
+} from '../nodes/ImageNode.jsx';
+import { Image } from '../browser/Image.js';
 
 export const INSERT_IMAGE_COMMAND = createCommand<{
   src: string;

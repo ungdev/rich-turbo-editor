@@ -1,4 +1,4 @@
-import { Color, colorState, ColorTextNode, colorTextNodeClass } from '@/nodes/ColorTextNode.js';
+import { Color, colorState, ColorTextNode, colorTextNodeClass } from '../nodes/ColorTextNode.js';
 import { $getState, $getStateChange, EditorConfig } from 'lexical';
 
 export class TextColor extends ColorTextNode {

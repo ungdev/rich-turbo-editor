@@ -13,8 +13,8 @@ import {
   SKIP_SELECTION_FOCUS_TAG,
 } from 'lexical';
 import { useEffect, useState } from 'react';
-import { INSERT_IMAGE_COMMAND } from '@/plugins/ImageExtension.jsx';
-import { Image } from '@/browser/Image.js';
+import { INSERT_IMAGE_COMMAND } from './ImageExtension.jsx';
+import { Image } from '../browser/Image.js';
 import styles from '@/LexicalTextEditor.module.scss';
 
 export const DRAGLEAVE_COMMAND = createCommand<DragEvent>('DRAGLEAVE_COMMAND');

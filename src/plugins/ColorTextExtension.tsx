@@ -1,5 +1,5 @@
-import { TextColor } from '@/browser/TextColor.js';
-import { $createColorTextNodeFromTextNode, $isColorTextNode, SerializedColor } from '@/nodes/ColorTextNode.js';
+import { TextColor } from '../browser/TextColor.js';
+import { $createColorTextNodeFromTextNode, $isColorTextNode, SerializedColor } from '../nodes/ColorTextNode.js';
 import {
   $addUpdateTag,
   $getSelection,

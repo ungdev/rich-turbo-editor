@@ -9,10 +9,10 @@ import { CodeExtension } from '@lexical/code';
 import { CodeShikiExtension } from '@lexical/code-shiki';
 import { TableExtension } from '@lexical/table';
 import { ListExtension, CheckListExtension } from '@lexical/list';
-import { ToolbarPlugin } from '@/plugins/ToolbarPlugin.jsx';
-import { EnableDisablePlugin } from '@/plugins/EnableDisablePlugin.jsx';
-import { MATCHERS } from '@/plugins/AutoLinkMatcherPlugin.jsx';
-import { ImageDropPlugin } from '@/plugins/ImageDropPlugin.jsx';
+import { ToolbarPlugin } from './plugins/ToolbarPlugin.jsx';
+import { EnableDisablePlugin } from './plugins/EnableDisablePlugin.jsx';
+import { MATCHERS } from './plugins/AutoLinkMatcherPlugin.jsx';
+import { ImageDropPlugin } from './plugins/ImageDropPlugin.jsx';
 import styles from '@/LexicalTextEditor.module.scss';
 import {
   AnyLexicalExtensionArgument,
@@ -24,11 +24,11 @@ import {
 } from 'lexical';
 import type { FC, KeyboardEvent, RefObject } from 'react';
 import { HorizontalRuleExtension, TabIndentationExtension } from '@lexical/extension';
-import { ColorTextExtension } from '@/plugins/ColorTextExtension.jsx';
-import { ImageExtension, INSERT_IMAGE_COMMAND } from '@/plugins/ImageExtension.jsx';
+import { ColorTextExtension } from './plugins/ColorTextExtension.jsx';
+import { ImageExtension, INSERT_IMAGE_COMMAND } from './plugins/ImageExtension.jsx';
 import { HistoryExtension } from '@lexical/history';
 import { ReactExtension } from '@lexical/react/ReactExtension';
-import { uploadedImageFC } from '@/browser/Image.jsx';
+import { uploadedImageFC } from './browser/Image.jsx';
 
 export type Bundle = '@etuutt/simple' | '@etuutt/full';
 /**

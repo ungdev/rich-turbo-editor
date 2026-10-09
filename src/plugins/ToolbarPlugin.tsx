@@ -64,16 +64,16 @@ import {
 import { $isAtNodeEnd, $setBlocksType } from '@lexical/selection';
 import { $isLinkNode, LinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { $isTableNode, $isTableSelection, INSERT_TABLE_COMMAND, TableNode } from '@lexical/table';
-import { uploadFile } from '@/plugins/ImageDropPlugin.jsx';
-import { FORMAT_COLOR_COMMAND } from '@/plugins/ColorTextExtension.jsx';
+import { uploadFile } from './ImageDropPlugin.jsx';
+import { FORMAT_COLOR_COMMAND } from './ColorTextExtension.jsx';
 import type { InitialConfigType } from '@lexical/react/LexicalComposer';
 import { CodeNode } from '@lexical/code';
-import { $findTopLevelElement } from '@/plugins/utils.js';
-import { TextColor } from '@/browser/TextColor.js';
-import { Image } from '@/browser/Image.js';
+import { $findTopLevelElement } from './utils.js';
+import { TextColor } from '../browser/TextColor.js';
+import { Image } from '../browser/Image.js';
 import { HistoryExtension } from '@lexical/history';
-import { INSERT_IMAGE_COMMAND } from '@/plugins/ImageExtension.jsx';
-import { InputComponent } from '@/browser.jsx';
+import { INSERT_IMAGE_COMMAND } from './ImageExtension.jsx';
+import { InputComponent } from '../browser.jsx';
 
 function Divider() {
   return <div className={styles.divider} />;

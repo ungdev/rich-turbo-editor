@@ -1,4 +1,4 @@
-import { altTextState, heightState, ImageNode, imageNodeClass, srcState, widthState } from '@/nodes/ImageNode.js';
+import { altTextState, heightState, ImageNode, imageNodeClass, srcState, widthState } from '../nodes/ImageNode.js';
 import { $getState } from 'lexical';
 
 export class Image extends ImageNode<HTMLElement> {

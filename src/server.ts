@@ -8,8 +8,8 @@ import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 import { ListItemNode, ListNode } from '@lexical/list';
 import { HorizontalRuleNode } from '@lexical/extension';
-import { RegisteredStyleMap } from '@/server/index.js';
-import { patchNodeExportDOM } from '@/server/NodeStyleInjector.js';
+import { RegisteredStyleMap } from './server/index.js';
+import { patchNodeExportDOM } from './server/NodeStyleInjector.js';
 import { Image } from './server/Image.js';
 import { TextColor } from './server/TextColor.js';
 

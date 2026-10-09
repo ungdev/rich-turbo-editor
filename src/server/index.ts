@@ -1,5 +1,5 @@
 import type { EditorThemeClasses } from 'lexical';
-import '@/server/NodeStyleInjector.js';
+import './NodeStyleInjector.js';
 
 export type RegisteredStyleMap<SubEditorThemeClasses = EditorThemeClasses> = {
   [K in keyof SubEditorThemeClasses]: SubEditorThemeClasses[K] extends Record<string, unknown>

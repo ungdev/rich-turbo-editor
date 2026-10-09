@@ -1,4 +1,4 @@
-import { colorState, ColorTextNode, colorTextNodeClass } from '@/nodes/ColorTextNode.js';
+import { colorState, ColorTextNode, colorTextNodeClass } from '../nodes/ColorTextNode.js';
 import { $getState, EditorConfig } from 'lexical';
 import styles from '@/LexicalTextEditor.module.scss';
 

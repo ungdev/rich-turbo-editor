@@ -9,10 +9,6 @@
     "sourceMap": true,
     "rootDir": ".",
     "outDir": "./dist",
-    "paths": {
-      "@/*": ["./src/*"],
-      "#/*": ["./test/*"]
-    },
     "jsx": "preserve",
     "incremental": true,
     "forceConsistentCasingInFileNames": true,
