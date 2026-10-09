@@ -1,5 +1,5 @@
 import { Color, colorState, ColorTextNode, colorTextNodeClass } from '../nodes/ColorTextNode.js';
-import { $getState, $getStateChange, EditorConfig } from 'lexical';
+import { $create, $getState, $getStateChange, EditorConfig } from 'lexical';
 
 export class TextColor extends ColorTextNode {
   createDOM(config: EditorConfig): HTMLElement {
@@ -19,4 +19,4 @@ export class TextColor extends ColorTextNode {
     return false;
   }
 }
-colorTextNodeClass.ctr = TextColor;
+colorTextNodeClass.ctr = (...arg) => $create(TextColor).setTextContent(arg[0]);

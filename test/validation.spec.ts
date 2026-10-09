@@ -18,18 +18,20 @@ const ValidationUnitSpec = () =>
       bundles: Record<keyof typeof BUNDLES, boolean>,
       test: (editor: LexicalEditor) => void,
     ) => {
-      Object.entries(bundles).forEach(([bundle, shouldBeValid]: [keyof typeof BUNDLES, boolean]) => {
-        describe(name, () => {
+      describe(name, () => {
+        Object.entries(bundles).forEach(([bundle, shouldBeValid]: [keyof typeof BUNDLES, boolean]) => {
           it(bundle, () => {
             const editor = createHeadlessEditor({
-              nodes: BUNDLES[bundle],
+              nodes: BUNDLES['@rte/full'],
             });
             useBundle(bundle);
             editor.update(() => {
               test(editor);
             });
             editor.read(() =>
-              expect(isValidLexicalContent(JSON.stringify(editor.getEditorState()), bundle)).toBe(shouldBeValid),
+              expect(isValidLexicalContent(JSON.stringify(editor.getEditorState().toJSON(true)), bundle)).toBe(
+                shouldBeValid,
+              ),
             );
           });
         });

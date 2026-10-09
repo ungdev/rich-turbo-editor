@@ -17,4 +17,4 @@ export class TextColor extends ColorTextNode {
     return updated;
   }
 }
-colorTextNodeClass.ctr = TextColor;
+colorTextNodeClass.ctr = (...args) => new TextColor(...args);

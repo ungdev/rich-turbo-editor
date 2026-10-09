@@ -231,7 +231,7 @@ function LexicalTextEditor<T extends Bundle, K>({
           aria-placeholder={(disabled && emptyText) || placeholder}
           placeholder={<div className={styles.placeholder}>{(disabled && emptyText) || placeholder}</div>}
         />
-        <OnChangePlugin onChange={(state) => !disabled && onChange?.(JSON.stringify(state))} />
+        <OnChangePlugin onChange={(state) => !disabled && onChange?.(JSON.stringify(state.toJSON(true)))} />
         <EnableDisablePlugin disabled={disabled} ref={setStateRef} />
         {plugins.map((Plugin, index) =>
           typeof Plugin === 'function' ? (

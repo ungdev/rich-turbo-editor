@@ -13,8 +13,8 @@ const GenerationUnitSpec = () =>
       test: (editor: LexicalEditor) => void,
       result: string,
     ) => {
-      bundles.forEach((bundle) => {
-        describe(name, () => {
+      describe(name, () => {
+        bundles.forEach((bundle) => {
           it(bundle, async () => {
             const editor = createHeadlessEditor({
               nodes: BUNDLES[bundle],
@@ -61,7 +61,7 @@ const GenerationUnitSpec = () =>
     checkExportForBundles(
       'Color text',
       ['@rte/full'],
-      () => $getRoot().append($createParagraphNode().append($createColorTextNode('Hello World', 'blue'))),
+      () => $getRoot().append($createParagraphNode().append($createColorTextNode('Hello World').setColor('blue'))),
       `<p style="margin:0px;"><span style="color:${Color.blue};white-space:pre-wrap;">Hello World</span></p>`,
     );
   });

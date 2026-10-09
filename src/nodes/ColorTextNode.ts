@@ -13,7 +13,7 @@ export const colorState = createState('color', {
   parse: (v) => (typeof v === 'string' && v in Color ? (v as SerializedColor) : undefined),
 });
 
-export const colorTextNodeClass: { ctr: new (text: string, nodekey?: NodeKey) => ColorTextNode } = { ctr: null };
+export const colorTextNodeClass: { ctr: (text: string, nodekey?: NodeKey) => ColorTextNode } = { ctr: null };
 export abstract class ColorTextNode extends TextNode {
   $config() {
     return this.config('color-text', {
@@ -45,7 +45,7 @@ export abstract class ColorTextNode extends TextNode {
 }
 
 export function $createColorTextNode(text?: string, nodeKey?: NodeKey): ColorTextNode {
-  return new colorTextNodeClass.ctr(text, nodeKey);
+  return colorTextNodeClass.ctr(text, nodeKey);
 }
 
 export function $createColorTextNodeFromTextNode(textNode: TextNode, color?: SerializedColor): ColorTextNode {
