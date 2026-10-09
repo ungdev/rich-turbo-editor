@@ -15,8 +15,8 @@ import { TextColor } from './server/TextColor.js';
 
 /** @internal */
 export const BUNDLES = {
-  '@etuutt/simple': [],
-  '@etuutt/full': [
+  '@rte/simple': [],
+  '@rte/full': [
     AutoLinkNode,
     CodeHighlightNode,
     CodeNode,
@@ -46,7 +46,7 @@ export const BUNDLES = {
  * @param bundle the bundle of allowed nodes (default: full bundle)
  * @returns true if the content is valid, false otherwise
  */
-export function isValidLexicalContent(userInput: string, bundle: keyof typeof BUNDLES = '@etuutt/full') {
+export function isValidLexicalContent(userInput: string, bundle: keyof typeof BUNDLES = '@rte/full') {
   try {
     const editor = createHeadlessEditor({
       nodes: BUNDLES[bundle],
@@ -72,7 +72,7 @@ export function isValidLexicalContent(userInput: string, bundle: keyof typeof BU
  */
 export async function generateHTML(
   lexicalContent: string,
-  bundle: keyof typeof BUNDLES = '@etuutt/full',
+  bundle: keyof typeof BUNDLES = '@rte/full',
 ): Promise<string> {
   let html = '';
   withDOM(() => {

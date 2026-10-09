@@ -14,7 +14,7 @@ import {
 
 export const FORMAT_COLOR_COMMAND = createCommand<SerializedColor>('FORMAT_COLOR_COMMAND');
 export const ColorTextExtension = defineExtension({
-  name: '@etuutt/rte/text/color',
+  name: '@ungdev/rte/text/color',
   nodes: [
     TextColor,
     {

@@ -30,7 +30,7 @@ import { HistoryExtension } from '@lexical/history';
 import { ReactExtension } from '@lexical/react/ReactExtension';
 import { uploadedImageFC } from './browser/Image.jsx';
 
-export type Bundle = '@etuutt/simple' | '@etuutt/full';
+export type Bundle = '@rte/simple' | '@rte/full';
 /**
  * Bundle of features (nodes and plugins) to use in Lexical Editor.
  *
@@ -52,12 +52,12 @@ export type RTEFeatureBundle = {
 
 /** Preconfigurations for Editor, see {@link $registerBundle} to create other bundles and {@link RTEFeatureBundle} for types. */
 const EDITOR_BUNDLES = {
-  '@etuutt/simple': {
+  '@rte/simple': {
     nodes: [],
     plugins: [],
     extensions: [],
   },
-  '@etuutt/full': {
+  '@rte/full': {
     nodes: [HeadingNode, QuoteNode],
     plugins: [ImageDropPlugin, MarkdownShortcutPlugin],
     extensions: [
@@ -124,18 +124,18 @@ export type InputComponent = FC<{
   onEnter: (event?: KeyboardEvent<HTMLInputElement>) => void;
 }>;
 
-interface LexicalTextEditorProps<K, T extends Bundle = '@etuutt/simple'> {
+interface LexicalTextEditorProps<K, T extends Bundle = '@rte/simple'> {
   /**
    * The feature bundle to use: custom nodes from used in {@link InitialConfigType} and lexical plugins.
    * This property should not be edited after the component is mounted as Lexical does not support dynamic
    * node list changes. You can use custom bundles if registered with {@link $registerBundle}.
    *
    * Predefined bundles:
-   * - `@etuutt/simple`: No extra nodes or plugins, only basic rich text features: bold, italic, underline,
+   * - `@rte/simple`: No extra nodes or plugins, only basic rich text features: bold, italic, underline,
    *                     strikethrough and alignment
-   * - `@etuutt/full`: All available nodes and plugins provided by EtuUTT: including images, tables, code blocks,
-   *                   colored text, links, lists, horizontal rules, markdown support, quotes, headings, indentation.
-   * @default '@etuutt/simple'
+   * - `@rte/full`:   All available nodes and plugins provided by RichTurboEditor: including images, tables, code blocks,
+   *                     colored text, links, lists, horizontal rules, markdown support, quotes, headings, indentation.
+   * @default '@rte/simple'
    */
   bundle?: T;
   /** Whether the Editor should handle inputs and events. This property can be updated at anytime. */
@@ -155,14 +155,12 @@ interface LexicalTextEditorProps<K, T extends Bundle = '@etuutt/simple'> {
    */
   setStateRef?: RefObject<(s: string) => void>;
   theme?: EditorThemeClasses;
-  uploadfileMethod?: T extends '@etuutt/full' ? (file: File) => Promise<K> : never;
-  extractMetaData?: T extends '@etuutt/full'
-    ? (apiResponse: K) => CommandPayloadType<typeof INSERT_IMAGE_COMMAND>
-    : never;
-  dropPlaceholder?: T extends '@etuutt/full' ? string : never;
-  uploadPlaceholderText?: T extends '@etuutt/full' ? string : never;
-  UploadedImageComponent?: T extends '@etuutt/full' ? UploadedImageComponent : never;
-  InputComponent?: T extends '@etuutt/full' ? InputComponent : never;
+  uploadfileMethod?: T extends '@rte/full' ? (file: File) => Promise<K> : never;
+  extractMetaData?: T extends '@rte/full' ? (apiResponse: K) => CommandPayloadType<typeof INSERT_IMAGE_COMMAND> : never;
+  dropPlaceholder?: T extends '@rte/full' ? string : never;
+  uploadPlaceholderText?: T extends '@rte/full' ? string : never;
+  UploadedImageComponent?: T extends '@rte/full' ? UploadedImageComponent : never;
+  InputComponent?: T extends '@rte/full' ? InputComponent : never;
 }
 
 /**
@@ -203,9 +201,9 @@ function LexicalTextEditor<T extends Bundle, K>({
   theme = {},
 }: LexicalTextEditorProps<K, T>) {
   uploadedImageFC.ref = UploadedImageComponent;
-  const { nodes, plugins, extensions } = EDITOR_BUNDLES[bundle ?? '@etuutt/simple'];
+  const { nodes, plugins, extensions } = EDITOR_BUNDLES[bundle ?? '@rte/simple'];
   const richTurboEditorExtension = defineExtension({
-    name: '@etuutt/rte',
+    name: '@ungdev/rte',
     dependencies: [
       HistoryExtension,
       RichTextExtension,

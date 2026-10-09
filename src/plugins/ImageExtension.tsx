@@ -55,7 +55,7 @@ function textNodeTransform(node: TextNode): void {
 }
 
 export const ImageExtension = defineExtension({
-  name: '@etuutt/rte/image',
+  name: '@ungdev/rte/image',
   nodes: [Image],
   register: (editor) =>
     mergeRegister(

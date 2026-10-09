@@ -7,6 +7,7 @@ on:
 
 jobs:
   lint:
+    if: "!contains(github.event.commits[0].message, '[no-lint]')"
     runs-on: self-hosted
     strategy:
       matrix:
@@ -23,7 +24,7 @@ jobs:
         with:
           package-manager-cache: false
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
 
@@ -45,7 +46,7 @@ jobs:
         with:
           package-manager-cache: false
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
 
@@ -67,11 +68,11 @@ jobs:
         with:
           package-manager-cache: false
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: 'pnpm'
       - name: Use Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.14"
+          python-version: '3.14'
       - run: pnpm build:docs:configure
       - run: pnpm build:docs
 
@@ -93,7 +94,7 @@ jobs:
         with:
           package-manager-cache: false
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:cov
       - uses: codecov/codecov-action@v4

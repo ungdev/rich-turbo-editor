@@ -1,6 +1,5 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import globals from 'globals';
 import tsParser from '@typescript-eslint/parser';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,10 +16,6 @@ export default defineConfig([globalIgnores(['eslint.config.mjs']),
   ],
 
   languageOptions: {
-    globals: {
-      ...globals.node,
-    },
-
     parser: tsParser,
     ecmaVersion: 5,
     sourceType: 'module',
