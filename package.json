@@ -27,7 +27,6 @@
     "AlbanSdl"
   ],
   "license": "MIT",
-  "packageManager": "pnpm@10.33.2",
   "dependencies": {
     "@lexical/code": "^0.52.0",
     "@lexical/code-shiki": "^0.52.0",

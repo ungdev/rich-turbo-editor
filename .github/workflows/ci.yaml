@@ -7,7 +7,6 @@ on:
 
 jobs:
   lint:
-    if: "!contains(github.event.commits[0].message, '[no-lint]')"
     runs-on: self-hosted
     strategy:
       matrix:
@@ -27,6 +26,7 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
+        if: "!contains(github.event.commits[0].message, '[no-lint]')"
 
   build:
     runs-on: self-hosted
