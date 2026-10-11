@@ -44,8 +44,8 @@ import {
   IconUnderline,
   IconUnorderedList,
 } from 'obra-icons-react';
-import { FC, KeyboardEvent, PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
-import styles from '@/LexicalTextEditor.module.scss';
+import { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
+import styles from '../browser.scss';
 import {
   $createHeadingNode,
   $createQuoteNode,

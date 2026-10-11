@@ -3,7 +3,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection';
 import { $getState, EditorConfig } from 'lexical';
 import React, { JSX } from 'react';
-import styles from '@/LexicalTextEditor.module.scss';
+import styles from '../browser.scss';
 import { UploadedImageComponent } from '../browser.jsx';
 
 export const uploadedImageFC: {
