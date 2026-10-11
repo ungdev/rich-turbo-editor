@@ -70,7 +70,7 @@ import type { InitialConfigType } from '@lexical/react/LexicalComposer';
 import { CodeNode } from '@lexical/code';
 import { $findTopLevelElement } from './utils.js';
 import { TextColor } from '../browser/TextColor.js';
-import { Image } from '../browser/Image.js';
+import { Image } from '../browser/Image.jsx';
 import { HistoryExtension } from '@lexical/history';
 import { INSERT_IMAGE_COMMAND } from './ImageExtension.jsx';
 import { InputComponent } from '../browser.jsx';
