@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: ${{ matrix.pnpm-version }}
       - uses: actions/setup-node@v7
@@ -26,25 +26,29 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
           registry-url: 'https://npm.pkg.github.com'
-      - name: Set version
+      - name: Set version ${{ github.ref_name }}
         run: pnpm version "$VERSION" --no-git-tag-version
         env:
           VERSION: ${{ github.ref_name }}
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - run: pnpm publish
+      - name: Logging to registry
+        run: pnpm config set "//npm.pkg.github.com/:_authToken" $NODE_AUTH_TOKEN
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm publish --no-git-checks
+        env:
+          VERSION: ${{ github.ref_name }}
       - name: Update github release description
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ github.ref_name }}
         run: |
-          if PREVIOUS_TAG=$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null); then
-            COMMITS=$(git log "$PREVIOUS_TAG..$TAG" --pretty=format:'- %s (%h)')
+          if PREVIOUS_TAG=$(git describe --tags --abbrev=0 "$VERSION^" 2>/dev/null); then
+            COMMITS=$(git log "$PREVIOUS_TAG..$VERSION" --pretty=format:'- %s (%h)')
           else
             echo "No previous tag found; including all commits."
-            COMMITS=$(git log "$TAG" --pretty=format:'- %s (%h)')
+            COMMITS=$(git log "$VERSION" --pretty=format:'- %s (%h)')
           fi
           EXISTING_BODY=$(gh release view "$VERSION" --json body --jq '.body')
           NEW_BODY=$(printf '%s\n\n## Commits\n%s' "$EXISTING_BODY" "$COMMITS")
