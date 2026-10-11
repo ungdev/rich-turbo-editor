@@ -22,7 +22,7 @@ import {
   TextNode,
   type EditorThemeClasses,
 } from 'lexical';
-import type { FC, KeyboardEvent, RefObject } from 'react';
+import type { FC, KeyboardEvent, MouseEventHandler, RefObject } from 'react';
 import { HorizontalRuleExtension, TabIndentationExtension } from '@lexical/extension';
 import { ColorTextExtension } from './plugins/ColorTextExtension.jsx';
 import { ImageExtension, INSERT_IMAGE_COMMAND } from './plugins/ImageExtension.jsx';
@@ -110,10 +110,10 @@ const defaultTheme = {
 export type UploadedImageComponent = FC<{
   className: string;
   src: string;
-  width: string | number;
-  height: string | number;
+  width: 'inherit' | number;
+  height: 'inherit' | number;
   altText: string;
-  onClick: (event: KeyboardEvent) => boolean;
+  onClick: MouseEventHandler<HTMLImageElement>;
 }>;
 export type InputComponent = FC<{
   className: string;
@@ -176,7 +176,7 @@ interface LexicalTextEditorProps<K, T extends Bundle = '@rte/simple'> {
  * the content of the editor, you can use the `onChange` callback from the props.
  *
  * @example
- * <LexicalTextEditor
+ * <RichTurboEditor
  *   placeholder={t('assos:infos.edit.description.placeholder')}
  *   emptyText={t('assos:infos.description.empty')}
  *   initialState={asso!.description}
@@ -184,7 +184,7 @@ interface LexicalTextEditorProps<K, T extends Bundle = '@rte/simple'> {
  *   disabled={!editInfosMode}
  * />
  */
-function LexicalTextEditor<T extends Bundle, K>({
+export function RichTurboEditor<T extends Bundle, K>({
   bundle,
   placeholder,
   emptyText,
@@ -254,10 +254,8 @@ function LexicalTextEditor<T extends Bundle, K>({
   );
 }
 
-export default LexicalTextEditor;
-
 /**
- * Use this function to ensure `str` can be used in a {@link LexicalTextEditor}
+ * Use this function to ensure `str` can be used in a {@link RichTurboEditor}
  * (either in the `initialState` prop or through the `setStateRef` hook)
  */
 export function $makeJson(str: string) {

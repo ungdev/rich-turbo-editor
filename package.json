@@ -1,13 +1,13 @@
 {
-  "name": "rte",
+  "name": "rich-turbo-editor",
   "version": "dev",
   "description": "",
-  "private": true,
   "type": "module",
   "exports": {
     ".": {
       "browser": "./dist/src/browser.jsx",
-      "node": "./dist/src/node.js"
+      "node": "./dist/src/server.js",
+      "default": "./dist/src/browser.jsx"
     }
   },
   "scripts": {
