@@ -10,10 +10,12 @@ jobs:
         node-version: [22]
         pnpm-version: [10]
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -25,9 +27,25 @@ jobs:
           cache: 'pnpm'
           registry-url: 'https://npm.pkg.github.com'
       - name: Set version
-        run: pnpm version ${{ github.ref }} --no-git-tag-version
+        run: pnpm version "$VERSION" --no-git-tag-version
+        env:
+          VERSION: ${{ github.ref_name }}
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update github release description
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.ref_name }}
+        run: |
+          if PREVIOUS_TAG=$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null); then
+            COMMITS=$(git log "$PREVIOUS_TAG..$TAG" --pretty=format:'- %s (%h)')
+          else
+            echo "No previous tag found; including all commits."
+            COMMITS=$(git log "$TAG" --pretty=format:'- %s (%h)')
+          fi
+          EXISTING_BODY=$(gh release view "$VERSION" --json body --jq '.body')
+          NEW_BODY=$(printf '%s\n\n## Commits\n%s' "$EXISTING_BODY" "$COMMITS")
+          gh release edit "$VERSION" --notes "$NEW_BODY"
