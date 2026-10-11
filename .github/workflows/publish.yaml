@@ -26,10 +26,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
           registry-url: 'https://npm.pkg.github.com'
-      - name: Set version ${{ github.ref_name }}
-        run: pnpm version "$VERSION" --no-git-tag-version
-        env:
-          VERSION: ${{ github.ref_name }}
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - name: Logging to registry
