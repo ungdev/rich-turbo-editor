@@ -1,6 +1,6 @@
 {
   "name": "@ungdev/rich-turbo-editor",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "type": "module",
   "exports": {
@@ -13,6 +13,9 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "files": [
+    "dist/src"
+  ],
   "repository": "https://github.com/ungdev/rich-turbo-editor.git",
   "scripts": {
     "build": "tsc && cp src/browser.scss dist/src/browser.scss",
