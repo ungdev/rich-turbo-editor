@@ -45,7 +45,7 @@ import {
   IconUnorderedList,
 } from 'obra-icons-react';
 import { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
-import styles from '../browser.scss';
+import styles from '../browser.module.scss';
 import {
   $createHeadingNode,
   $createQuoteNode,

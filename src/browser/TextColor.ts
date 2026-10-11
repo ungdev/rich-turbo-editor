@@ -1,6 +1,6 @@
 import { colorState, ColorTextNode, colorTextNodeClass } from '../nodes/ColorTextNode.js';
 import { $getState, EditorConfig } from 'lexical';
-import styles from '../browser.scss';
+import styles from '../browser.module.scss';
 
 export class TextColor extends ColorTextNode {
   createDOM(config: EditorConfig) {

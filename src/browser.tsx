@@ -13,7 +13,7 @@ import { ToolbarPlugin } from './plugins/ToolbarPlugin.jsx';
 import { EnableDisablePlugin } from './plugins/EnableDisablePlugin.jsx';
 import { MATCHERS } from './plugins/AutoLinkMatcherPlugin.jsx';
 import { ImageDropPlugin } from './plugins/ImageDropPlugin.jsx';
-import styles from './browser.scss';
+import styles from './browser.module.scss';
 import {
   AnyLexicalExtensionArgument,
   CommandPayloadType,

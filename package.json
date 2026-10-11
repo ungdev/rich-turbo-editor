@@ -18,7 +18,7 @@
   ],
   "repository": "https://github.com/ungdev/rich-turbo-editor.git",
   "scripts": {
-    "build": "tsc && cp src/browser.scss dist/src/browser.scss",
+    "build": "tsc && cp src/browser.module.scss dist/src/browser.module.scss",
     "build:docs": "python3 -m sphinx -W -T -b html -d docs/build/doctrees -D language=fr docs docs/build/html",
     "build:docs:configure": "pip install --upgrade pip setuptools sphinx readthedocs-sphinx-ext && pip install -r docs/requirements.txt",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

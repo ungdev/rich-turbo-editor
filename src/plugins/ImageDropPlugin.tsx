@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from 'react';
 import { INSERT_IMAGE_COMMAND } from './ImageExtension.jsx';
 import { Image } from '../browser/Image.jsx';
-import styles from '../browser.scss';
+import styles from '../browser.module.scss';
 
 export const DRAGLEAVE_COMMAND = createCommand<DragEvent>('DRAGLEAVE_COMMAND');
 
