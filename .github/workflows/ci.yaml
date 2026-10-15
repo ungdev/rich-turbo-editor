@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    runs-on: sia-static-runners
+    runs-on: sia-autoscale-runners
     strategy:
       matrix:
         node-version: [22]
@@ -30,7 +30,7 @@ jobs:
         if: "!contains(github.event.commits[0].message, '[no-lint]')"
 
   build:
-    runs-on: sia-static-runners
+    runs-on: sia-autoscale-runners
     needs: lint
     strategy:
       matrix:
@@ -51,7 +51,7 @@ jobs:
       - run: pnpm build
 
   docs:
-    runs-on: sia-static-runners
+    runs-on: sia-autoscale-runners
     needs: build
     strategy:
       matrix:
@@ -81,8 +81,8 @@ jobs:
       - run: pnpm build:docs
 
   test:
-    runs-on: sia-static-runners
-    needs: docs
+    runs-on: sia-autoscale-runners
+    needs: build
     strategy:
       matrix:
         node-version: [22]
