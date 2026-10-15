@@ -8,44 +8,28 @@ jobs:
     strategy:
       matrix:
         node-version: [22]
-        pnpm-version: [10]
+        pnpm-version: [11]
     permissions:
       contents: write
       packages: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+      - name: Install NodeJS
+        uses: pnpm/setup@v3
         with:
-          fetch-depth: 0
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: ${{ matrix.pnpm-version }}
-      - uses: actions/setup-node@v7
-        with:
-          package-manager-cache: false
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-          registry-url: 'https://npm.pkg.github.com'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - name: Logging to registry
-        run: pnpm config set "//npm.pkg.github.com/:_authToken" $NODE_AUTH_TOKEN
+          runtime: node@${{ matrix.node-version }}
+          require-lockfile: true
+          version: ^${{ matrix.pnpm-version }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pnpm_config__auth: |
+            {
+              "https://npm.pkg.github.com": {
+                "@ungdev": {
+                  "authToken": ${{ toJSON(secrets.GITHUB_TOKEN) }}
+                }
+              }
+            }
+      - run: pnpm build
       - run: pnpm publish --no-git-checks
         env:
           VERSION: ${{ github.ref_name }}
-      - name: Update github release description
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ github.ref_name }}
-        run: |
-          if PREVIOUS_TAG=$(git describe --tags --abbrev=0 "$VERSION^" 2>/dev/null); then
-            COMMITS=$(git log "$PREVIOUS_TAG..$VERSION" --pretty=format:'- %s (%h)')
-          else
-            echo "No previous tag found; including all commits."
-            COMMITS=$(git log "$VERSION" --pretty=format:'- %s (%h)')
-          fi
-          EXISTING_BODY=$(gh release view "$VERSION" --json body --jq '.body')
-          NEW_BODY=$(printf '%s\n\n## Commits\n%s' "$EXISTING_BODY" "$COMMITS")
-          gh release edit "$VERSION" --notes "$NEW_BODY"
