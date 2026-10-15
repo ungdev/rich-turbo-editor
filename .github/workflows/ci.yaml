@@ -12,8 +12,11 @@ jobs:
       matrix:
         node-version: [22]
         pnpm-version: [11]
+    permissions:
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
         if: "!contains(github.event.commits[0].message, '[no-lint]')"
       - name: Install NodeJS
         if: "!contains(github.event.commits[0].message, '[no-lint]')"
@@ -32,8 +35,11 @@ jobs:
       matrix:
         node-version: [22]
         pnpm-version: [11]
+    permissions:
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Install NodeJS
         uses: pnpm/setup@v3
         with:
@@ -49,20 +55,23 @@ jobs:
       matrix:
         node-version: [22]
         pnpm-version: [11]
+    permissions:
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: ${{ matrix.pnpm-version }}
       - name: Use Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           package-manager-cache: false
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
       - name: Use Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.14'
       - run: pnpm build:docs:configure
@@ -75,8 +84,11 @@ jobs:
       matrix:
         node-version: [22]
         pnpm-version: [11]
+    permissions:
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Install NodeJS
         uses: pnpm/setup@v3
         with:

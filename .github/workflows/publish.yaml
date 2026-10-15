@@ -10,10 +10,11 @@ jobs:
         node-version: [22]
         pnpm-version: [11]
     permissions:
-      contents: write
       packages: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Install NodeJS
         uses: pnpm/setup@v3
         with:
