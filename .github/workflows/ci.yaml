@@ -7,12 +7,13 @@ on:
 
 jobs:
   lint:
-    runs-on: self-hosted
+    runs-on: sia-static-runners
     strategy:
       matrix:
         node-version: [22]
         pnpm-version: [11]
     permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
         with:
@@ -29,13 +30,14 @@ jobs:
         if: "!contains(github.event.commits[0].message, '[no-lint]')"
 
   build:
-    runs-on: self-hosted
+    runs-on: sia-static-runners
     needs: lint
     strategy:
       matrix:
         node-version: [22]
         pnpm-version: [11]
     permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
         with:
@@ -49,13 +51,14 @@ jobs:
       - run: pnpm build
 
   docs:
-    runs-on: self-hosted
+    runs-on: sia-static-runners
     needs: build
     strategy:
       matrix:
         node-version: [22]
         pnpm-version: [11]
     permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
         with:
@@ -78,13 +81,14 @@ jobs:
       - run: pnpm build:docs
 
   test:
-    runs-on: self-hosted
+    runs-on: sia-static-runners
     needs: docs
     strategy:
       matrix:
         node-version: [22]
         pnpm-version: [11]
     permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
         with:
