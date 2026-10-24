@@ -73,7 +73,6 @@ import { Image } from '../browser/Image.jsx';
 import { HistoryExtension } from '@lexical/history';
 import { INSERT_IMAGE_COMMAND } from './ImageExtension.jsx';
 import { InputComponent } from '../browser.jsx';
-import { KnownTypesAndNodes } from '@lexical/extension';
 
 function Divider() {
   return <div className={styles.divider} />;
@@ -93,7 +92,7 @@ export function ToolbarFloatingMenu({ children, display }: ToolbarFloatingMenuPr
 }
 
 export function ToolbarPlugin<T>(props: {
-  enabledNodes: RefObject<KnownTypesAndNodes['nodes']>;
+  enabledNodes: RefObject<Set<string>>;
   uploadfileMethod: (file: File) => Promise<T>;
   extractMetaData: (apiResponse: T) => CommandPayloadType<typeof INSERT_IMAGE_COMMAND>;
   uploadPlaceholderText: string;
@@ -239,7 +238,7 @@ export function ToolbarPlugin<T>(props: {
         aria-label="Format Strikethrough">
         <IconStrikethrough />
       </button>
-      {props.enabledNodes.current.has(TextColor) && (
+      {props.enabledNodes.current.has(TextColor.getType()) && (
         <button
           onClick={() => toggleToolbarFloatingMenu('color')}
           className={styles.item}
@@ -266,7 +265,7 @@ export function ToolbarPlugin<T>(props: {
         </button>
       )}
       <Divider />
-      {props.enabledNodes.current.has(HeadingNode) && (
+      {props.enabledNodes.current.has(HeadingNode.getType()) && (
         <>
           <button
             onClick={() => formatParagraph(editor)}
@@ -294,7 +293,7 @@ export function ToolbarPlugin<T>(props: {
           </button>
         </>
       )}
-      {props.enabledNodes.current.has(QuoteNode) && (
+      {props.enabledNodes.current.has(QuoteNode.getType()) && (
         <button
           onClick={() => formatQuote(editor, blockType)}
           className={`${styles.item} ${blockType === 'quote' ? styles.active : ''}`}
@@ -302,7 +301,7 @@ export function ToolbarPlugin<T>(props: {
           <IconQuoteFill />
         </button>
       )}
-      {props.enabledNodes.current.has(CodeNode) && (
+      {props.enabledNodes.current.has(CodeNode.getType()) && (
         <button
           onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')}
           className={`${styles.item} ${isCode ? styles.active : ''}`}
@@ -310,7 +309,7 @@ export function ToolbarPlugin<T>(props: {
           <IconCode />
         </button>
       )}
-      {props.enabledNodes.current.has(ListNode) && (
+      {props.enabledNodes.current.has(ListNode.getType()) && (
         <>
           <button
             onClick={() => formatBulletList(editor, blockType)}
@@ -332,7 +331,7 @@ export function ToolbarPlugin<T>(props: {
           </button>
         </>
       )}
-      {props.enabledNodes.current.has(TableNode) && (
+      {props.enabledNodes.current.has(TableNode.getType()) && (
         <button
           onClick={() => toggleToolbarFloatingMenu('table')}
           className={`${styles.item} ${blockType === 'table' ? styles.active : ''}`}
@@ -363,7 +362,7 @@ export function ToolbarPlugin<T>(props: {
         </button>
       )}
       <Divider />
-      {props.enabledNodes.current.has(LinkNode) && (
+      {props.enabledNodes.current.has(LinkNode.getType()) && (
         <button
           onClick={() => toggleToolbarFloatingMenu('link')}
           className={`${styles.item} ${typeof link === 'string' ? styles.active : ''}`}
@@ -387,7 +386,7 @@ export function ToolbarPlugin<T>(props: {
           </ToolbarFloatingMenu>
         </button>
       )}
-      {props.enabledNodes.current.has(Image) && (
+      {props.enabledNodes.current.has(Image.getType()) && (
         <button onClick={() => toggleToolbarFloatingMenu('file')} className={styles.item} aria-label="Upload Image">
           <IconImage />
           <ToolbarFloatingMenu display={isFilePaletteOpen}>
