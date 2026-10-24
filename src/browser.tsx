@@ -219,8 +219,8 @@ export function RichTurboEditor<T extends Bundle, K>({
       ...extensions,
       configExtension(ReactExtension, { contentEditable: null }),
     ],
-    init(_editorConfig, config) {
-      nodesRef.current = getKnownTypesAndNodes(config).types;
+    init(editorConfig) {
+      nodesRef.current = getKnownTypesAndNodes(editorConfig).types;
     },
     nodes: () => nodes,
     theme: { ...defaultTheme, ...theme },
