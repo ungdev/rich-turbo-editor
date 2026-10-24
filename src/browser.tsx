@@ -22,8 +22,13 @@ import {
   TextNode,
   type EditorThemeClasses,
 } from 'lexical';
-import type { FC, KeyboardEvent, MouseEventHandler, RefObject } from 'react';
-import { HorizontalRuleExtension, TabIndentationExtension } from '@lexical/extension';
+import { useRef, type FC, type KeyboardEvent, type MouseEventHandler, type RefObject } from 'react';
+import {
+  getKnownTypesAndNodes,
+  HorizontalRuleExtension,
+  KnownTypesAndNodes,
+  TabIndentationExtension,
+} from '@lexical/extension';
 import { ColorTextExtension } from './plugins/ColorTextExtension.jsx';
 import { ImageExtension, INSERT_IMAGE_COMMAND } from './plugins/ImageExtension.jsx';
 import { HistoryExtension } from '@lexical/history';
@@ -210,6 +215,7 @@ export function RichTurboEditor<T extends Bundle, K>({
 }: LexicalTextEditorProps<K, T>) {
   uploadedImageFC.ref = UploadedImageComponent;
   const { nodes, plugins, extensions } = EDITOR_BUNDLES[bundle ?? '@rte/simple'];
+  const nodesRef = useRef<KnownTypesAndNodes['nodes']>(new Set());
   const richTurboEditorExtension = defineExtension({
     name: '@ungdev/rte',
     dependencies: [
@@ -218,6 +224,9 @@ export function RichTurboEditor<T extends Bundle, K>({
       ...extensions,
       configExtension(ReactExtension, { contentEditable: null }),
     ],
+    init(_editorConfig, config) {
+      nodesRef.current = getKnownTypesAndNodes(config).nodes;
+    },
     nodes: () => nodes,
     theme: { ...defaultTheme, ...theme },
     $initialEditorState: initialState,
@@ -227,7 +236,7 @@ export function RichTurboEditor<T extends Bundle, K>({
     <LexicalExtensionComposer extension={richTurboEditorExtension} contentEditable={null}>
       {!disabled && (
         <ToolbarPlugin
-          enabledNodes={nodes}
+          enabledNodes={nodesRef}
           uploadPlaceholderText={uploadPlaceholderText}
           InputComponent={InputComponent}
           extractMetaData={extractMetaData}

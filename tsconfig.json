@@ -3,7 +3,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "declaration": true,
-    "removeComments": true,
+    "removeComments": false,
     "allowSyntheticDefaultImports": true,
     "target": "ESNext",
     "sourceMap": true,

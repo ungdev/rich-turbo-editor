@@ -44,7 +44,7 @@ import {
   IconUnderline,
   IconUnorderedList,
 } from 'obra-icons-react';
-import { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
+import { PropsWithChildren, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import styles from '../browser.module.scss';
 import {
   $createHeadingNode,
@@ -66,7 +66,6 @@ import { $isLinkNode, LinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { $isTableNode, $isTableSelection, INSERT_TABLE_COMMAND, TableNode } from '@lexical/table';
 import { uploadFile } from './ImageDropPlugin.jsx';
 import { FORMAT_COLOR_COMMAND } from './ColorTextExtension.jsx';
-import type { InitialConfigType } from '@lexical/react/LexicalComposer';
 import { CodeNode } from '@lexical/code';
 import { $findTopLevelElement } from './utils.js';
 import { TextColor } from '../browser/TextColor.js';
@@ -74,6 +73,7 @@ import { Image } from '../browser/Image.jsx';
 import { HistoryExtension } from '@lexical/history';
 import { INSERT_IMAGE_COMMAND } from './ImageExtension.jsx';
 import { InputComponent } from '../browser.jsx';
+import { KnownTypesAndNodes } from '@lexical/extension';
 
 function Divider() {
   return <div className={styles.divider} />;
@@ -93,7 +93,7 @@ export function ToolbarFloatingMenu({ children, display }: ToolbarFloatingMenuPr
 }
 
 export function ToolbarPlugin<T>(props: {
-  enabledNodes: InitialConfigType['nodes'];
+  enabledNodes: RefObject<KnownTypesAndNodes['nodes']>;
   uploadfileMethod: (file: File) => Promise<T>;
   extractMetaData: (apiResponse: T) => CommandPayloadType<typeof INSERT_IMAGE_COMMAND>;
   uploadPlaceholderText: string;
@@ -239,7 +239,7 @@ export function ToolbarPlugin<T>(props: {
         aria-label="Format Strikethrough">
         <IconStrikethrough />
       </button>
-      {props.enabledNodes?.includes(TextColor) && (
+      {props.enabledNodes.current.has(TextColor) && (
         <button
           onClick={() => toggleToolbarFloatingMenu('color')}
           className={styles.item}
@@ -266,7 +266,7 @@ export function ToolbarPlugin<T>(props: {
         </button>
       )}
       <Divider />
-      {props.enabledNodes?.includes(HeadingNode) && (
+      {props.enabledNodes.current.has(HeadingNode) && (
         <>
           <button
             onClick={() => formatParagraph(editor)}
@@ -294,7 +294,7 @@ export function ToolbarPlugin<T>(props: {
           </button>
         </>
       )}
-      {props.enabledNodes?.includes(QuoteNode) && (
+      {props.enabledNodes.current.has(QuoteNode) && (
         <button
           onClick={() => formatQuote(editor, blockType)}
           className={`${styles.item} ${blockType === 'quote' ? styles.active : ''}`}
@@ -302,7 +302,7 @@ export function ToolbarPlugin<T>(props: {
           <IconQuoteFill />
         </button>
       )}
-      {props.enabledNodes?.includes(CodeNode) && (
+      {props.enabledNodes.current.has(CodeNode) && (
         <button
           onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')}
           className={`${styles.item} ${isCode ? styles.active : ''}`}
@@ -310,7 +310,7 @@ export function ToolbarPlugin<T>(props: {
           <IconCode />
         </button>
       )}
-      {props.enabledNodes?.includes(ListNode) && (
+      {props.enabledNodes.current.has(ListNode) && (
         <>
           <button
             onClick={() => formatBulletList(editor, blockType)}
@@ -332,7 +332,7 @@ export function ToolbarPlugin<T>(props: {
           </button>
         </>
       )}
-      {props.enabledNodes?.includes(TableNode) && (
+      {props.enabledNodes.current.has(TableNode) && (
         <button
           onClick={() => toggleToolbarFloatingMenu('table')}
           className={`${styles.item} ${blockType === 'table' ? styles.active : ''}`}
@@ -363,7 +363,7 @@ export function ToolbarPlugin<T>(props: {
         </button>
       )}
       <Divider />
-      {props.enabledNodes?.includes(LinkNode) && (
+      {props.enabledNodes.current.has(LinkNode) && (
         <button
           onClick={() => toggleToolbarFloatingMenu('link')}
           className={`${styles.item} ${typeof link === 'string' ? styles.active : ''}`}
@@ -387,7 +387,7 @@ export function ToolbarPlugin<T>(props: {
           </ToolbarFloatingMenu>
         </button>
       )}
-      {props.enabledNodes?.includes(Image) && (
+      {props.enabledNodes.current.has(Image) && (
         <button onClick={() => toggleToolbarFloatingMenu('file')} className={styles.item} aria-label="Upload Image">
           <IconImage />
           <ToolbarFloatingMenu display={isFilePaletteOpen}>
