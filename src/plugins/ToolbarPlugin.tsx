@@ -66,7 +66,7 @@ import { $isLinkNode, LinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { $isTableNode, $isTableSelection, INSERT_TABLE_COMMAND, TableNode } from '@lexical/table';
 import { uploadFile } from './ImageDropPlugin.jsx';
 import { FORMAT_COLOR_COMMAND } from './ColorTextExtension.jsx';
-import { CodeNode } from '@lexical/code';
+import { $isCodeHighlightNode, CodeHighlightNode, CodeNode } from '@lexical/code';
 import { $findTopLevelElement } from './utils.js';
 import { TextColor } from '../browser/TextColor.js';
 import { Image } from '../browser/Image.jsx';
@@ -167,6 +167,10 @@ export function ToolbarPlugin<T>(props: {
       }
       setLink(link);
       if ($findMatchingParent(node, $isTableNode)) type = 'table';
+      if ($isCodeHighlightNode(node)) {
+        type = 'code';
+        setIsCode(true);
+      }
 
       setBlockType(type);
       setAlign(
@@ -301,9 +305,10 @@ export function ToolbarPlugin<T>(props: {
           <IconQuoteFill />
         </button>
       )}
-      {props.enabledNodes.current.has(CodeNode.getType()) && (
+      {(props.enabledNodes.current.has(CodeHighlightNode.getType()) ||
+        props.enabledNodes.current.has(CodeNode.getType())) && (
         <button
-          onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')}
+          onClick={() => blockType !== 'code' && editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')}
           className={`${styles.item} ${isCode ? styles.active : ''}`}
           aria-label="Format Code">
           <IconCode />
