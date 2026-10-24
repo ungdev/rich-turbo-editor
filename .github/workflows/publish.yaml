@@ -11,7 +11,6 @@ jobs:
         pnpm-version: [11]
     permissions:
       packages: write
-      id-token: write
     steps:
       - uses: actions/checkout@v7
         with:
@@ -22,16 +21,9 @@ jobs:
           runtime: node@${{ matrix.node-version }}
           require-lockfile: true
           version: ^${{ matrix.pnpm-version }}
-        env:
-          pnpm_config__auth: |
-            {
-              "https://npm.pkg.github.com": {
-                "@ungdev": {
-                  "authToken": "${{ secrets.GITHUB_TOKEN }}"
-                }
-              }
-            }
       - run: pnpm build
+      - name: Login to Github registry
+        run: pnpm config set "//npm.pkg.github.com/:_authToken" ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm publish --no-git-checks
         env:
           VERSION: ${{ github.ref_name }}
