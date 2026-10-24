@@ -26,7 +26,7 @@ jobs:
             {
               "https://npm.pkg.github.com": {
                 "@ungdev": {
-                  "authToken": ${{ toJSON(secrets.GITHUB_TOKEN) }}
+                  "authToken": ${{ secrets.GITHUB_TOKEN }}
                 }
               }
             }
