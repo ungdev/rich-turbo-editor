@@ -29,6 +29,7 @@ import { ImageExtension, INSERT_IMAGE_COMMAND } from './plugins/ImageExtension.j
 import { HistoryExtension } from '@lexical/history';
 import { ReactExtension } from '@lexical/react/ReactExtension';
 import { uploadedImageFC } from './browser/Image.jsx';
+import { GetStatePlugin } from './plugins/GetStatePlugin.jsx';
 
 export type Bundle = '@rte/simple' | '@rte/full';
 /**
@@ -146,8 +147,14 @@ interface LexicalTextEditorProps<K, T extends Bundle = '@rte/simple'> {
   placeholder: string;
   /** The initial state of the Editor, in Lexical's JSON format */
   initialState?: string;
-  /** Callback called when the content of the Editor changes, providing the new state in Lexical's JSON format */
+  /**
+   * Callback called when the content of the Editor changes, providing the new state in Lexical's JSON format
+   * @deprecated Use {@link LexicalTextEditorProps.getState} instead as you should not update the local state
+   * to prevent the editor from refreshing
+   */
   onChange?: (state: string) => void;
+  /** Retrieves the current state of the editor */
+  getState?: RefObject<() => string>;
   /**
    * A ref to a hook to update Editor state (contents). This hook must be only used when setting different content,
    * not for regular updated sent by `onChange` as state is already retained by Lexical (and it would be a bummer to
@@ -191,6 +198,7 @@ export function RichTurboEditor<T extends Bundle, K>({
   disabled = false,
   initialState,
   onChange,
+  getState,
   setStateRef,
   uploadPlaceholderText,
   dropPlaceholder,
@@ -233,6 +241,7 @@ export function RichTurboEditor<T extends Bundle, K>({
         />
         <OnChangePlugin onChange={(state) => !disabled && onChange?.(JSON.stringify(state.toJSON(true)))} />
         <EnableDisablePlugin disabled={disabled} ref={setStateRef} />
+        <GetStatePlugin ref={getState} />
         {plugins.map((Plugin, index) =>
           typeof Plugin === 'function' ? (
             Plugin === ImageDropPlugin ? (
